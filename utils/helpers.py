@@ -218,7 +218,7 @@ def append_df_to_excel(
         wb.close()
 
 
-def send_email(email_address: str, df: str):
+def send_email(email_address: str, df: str, personal_email_info: dict):
     """
     send_email sends an email to the email address specified in the
     argument.
@@ -245,5 +245,10 @@ def send_email(email_address: str, df: str):
     part1 = MIMEText(html, 'html')
     msg.attach(part1)
 
+    my_mail = personal_email_info['email']
+    mypswd = personal_email_info['password']
     server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.sendmail(msg['From'], msg['To'] , msg.as_string())
+    server.starttls()
+    server.login(my_mail, mypswd)
+    server.sendmail(my_mail, email_address, msg.as_string())
+    server.quit()

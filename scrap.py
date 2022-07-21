@@ -10,7 +10,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-EMAIL_ADDRESS = os.environ['EMAIL_ADDRESS']
+R_EMAIL_ADDRESS = os.environ['R_EMAIL_ADDRESS']
+S_EMAIL_PWSD = os.environ['S_EMAIL_PWSD']
+S_EMAIL_ADDRESS = os.environ['S_EMAIL_ADDRESS']
+
+
+personal_email_info = {'email': S_EMAIL_ADDRESS, 'password': S_EMAIL_PWSD}
 
 while 1:
     try:
@@ -21,13 +26,13 @@ while 1:
         df_in = pd.read_excel('input.xlsx')
 
         query_product = df_in["Producto"].values[0]
-        print('query: ',query_product)
+        #print('query: ',query_product)
         base_url = f'https://www.amazon.com/s?k={query_product}'
         response = requests.get(base_url, headers=headers)
         print('respuesta: ',response)
         soup = BeautifulSoup(response.content, 'html.parser')
         results = soup.find_all('a', {'class': 'a-size-base a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal'})
-        print(results)
+        #print(results)
         df = pd.DataFrame(columns=['Fecha', 'Busqueda', 'Producto', 'Precio', 'Descuento', 'Link'])
 
         for res in results:
@@ -52,7 +57,7 @@ while 1:
         df.reset_index(drop=True, inplace=True)
         print(df)
         if not df.empty:
-            helpers.send_email(email_address='tomasechavarriab@gmail.com', df=df)
+            helpers.send_email(email_address=R_EMAIL_ADDRESS, df=df, personal_email_info=personal_email_info)
             print('email sent')
 
         if os.path.isfile('Precios amazon.xlsx'):
