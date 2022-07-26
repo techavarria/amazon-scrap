@@ -10,10 +10,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-R_EMAIL_ADDRESS = 'felipe.gutierreze@hotmail.com'#os.environ['R_EMAIL_ADDRESS']
-S_EMAIL_PWSD = 'tfhaxuyryjmpvcec'#os.environ['S_EMAIL_PWSD']
+R_EMAIL_ADDRESS = os.environ['R_EMAIL_ADDRESS'] #'felipe.gutierreze@hotmail.com'#
+S_EMAIL_PWSD = os.environ['S_EMAIL_PWSD'] #'tfhaxuyryjmpvcec'#
 
-S_EMAIL_ADDRESS = 'Datatroopermailservice@gmail.com'#os.environ['S_EMAIL_ADDRESS']
+S_EMAIL_ADDRESS = os.environ['S_EMAIL_ADDRESS'] #'Datatroopermailservice@gmail.com'#
 
 
 personal_email_info = {'email': S_EMAIL_ADDRESS, 'password': S_EMAIL_PWSD}
